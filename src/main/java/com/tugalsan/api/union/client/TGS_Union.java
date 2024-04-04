@@ -1,6 +1,5 @@
 package com.tugalsan.api.union.client;
 
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeoutException;
 
 public class TGS_Union<T> {
@@ -34,12 +33,8 @@ public class TGS_Union<T> {
         return throwable != null && throwable instanceof TimeoutException;
     }
 
-    public boolean isInterruptedException() {
+    public boolean isInterrupt() {
         return throwable != null && throwable instanceof InterruptedException;
-    }
-
-    public boolean isExecutionException() {
-        return throwable != null && throwable instanceof ExecutionException;
     }
 
     @Override
