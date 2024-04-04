@@ -89,6 +89,9 @@ public class TGS_Union<T> {
 
     @Override
     public String toString() {
-        return TGS_Union.class.getSimpleName() + "{" + "value=" + value + ", throwable=" + throwable + '}';
+        if (value == null) {
+            return TGS_Union.class.getSimpleName() + "{" + "value=" + value + ", throwable=" + throwable + '}';
+        }
+        return String.valueOf(value);
     }
 }
