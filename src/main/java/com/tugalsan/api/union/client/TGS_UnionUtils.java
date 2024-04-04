@@ -2,14 +2,16 @@ package com.tugalsan.api.union.client;
 
 public class TGS_UnionUtils {
 
-    public static void throwAsRuntimeExceptionIfNotInterruptedException(Throwable t) {
+    @Deprecated //DO NOT USE IT FOR InterruptedException
+    public static void throwAsRuntimeException(Throwable t) {
         throw new RuntimeException(t);
     }
 
-    public static <R> R throwAsRuntimeExceptionIfNotInterruptedException_returns(Throwable t) {
+    @Deprecated //DO NOT USE IT FOR InterruptedException
+    public static <R> R throwAsRuntimeException_alsoReturns(Throwable t) {
         throw new RuntimeException(t);
     }
-
+    
     public static RuntimeException toRuntimeException(CharSequence className, CharSequence funcName, Object errorContent) {
         return new RuntimeException(TGS_UnionUtils.class + ".toRuntimeException->CLASS[" + className + "] -> FUNC[" + funcName + "] -> ERR: " + errorContent);
     }
