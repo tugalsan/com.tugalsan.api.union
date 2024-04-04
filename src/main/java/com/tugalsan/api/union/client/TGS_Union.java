@@ -1,6 +1,8 @@
 package com.tugalsan.api.union.client;
 
+import java.util.Objects;
 import java.util.concurrent.TimeoutException;
+import java.util.function.Consumer;
 
 public class TGS_Union<T> {
 
@@ -25,6 +27,23 @@ public class TGS_Union<T> {
         return value == null;
     }
 
+    public void ifPresent(Consumer<? super T> action) {
+        if (value != null) {
+            action.accept(value);
+        }
+    }
+
+    public T orElseThrow() throws Throwable {
+        if (value == null) {
+            throw throwable;
+        }
+        return value;
+    }
+
+    public T orElse(T other) {
+        return value != null ? value : other;
+    }
+
     public boolean isPresent() {
         return !isEmpty();
     }
@@ -38,7 +57,33 @@ public class TGS_Union<T> {
     }
 
     @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.value);
+        hash = 59 * hash + Objects.hashCode(this.throwable);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TGS_Union<?> other = (TGS_Union<?>) obj;
+        if (!Objects.equals(this.value, other.value)) {
+            return false;
+        }
+        return Objects.equals(this.throwable, other.throwable);
+    }
+
+    @Override
     public String toString() {
-        throw new UnsupportedOperationException();
+        return TGS_Union.class.getSimpleName() + "{" + "value=" + value + ", throwable=" + throwable + '}';
     }
 }
