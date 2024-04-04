@@ -2,7 +2,7 @@ package com.tugalsan.api.union.client;
 
 public class TGS_UnionUtils {
 
-    @Deprecated //DO NOT USE IT FOR InterruptedException
+    @Deprecated //DO NOT USE IT FOR InterruptedException, SO use TS_UnionUtils on server side
     public static <R> R throwAsRuntimeException(Throwable t) {
         throw new RuntimeException(t);
     }
