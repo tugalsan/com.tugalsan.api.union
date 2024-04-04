@@ -18,7 +18,7 @@ public class TGS_UnionUtils {
     public static void runNothing() {
     }
 
-    public static <R> R callNull() {
+    public static <R> R callVoid() {
         return null;
     }
 
