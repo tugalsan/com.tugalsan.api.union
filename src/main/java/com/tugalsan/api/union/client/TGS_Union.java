@@ -13,13 +13,18 @@ public class TGS_Union<T> {
     final public T value;
     final public Throwable throwable;
 
-    public static <T> TGS_Union<T> of(Throwable value) {
-        return new TGS_Union(null, value);
+    public static <T> TGS_Union<T> ofThrowable(CharSequence className, CharSequence funcName, Object errorContent) {
+        var throwable = TGS_UnionUtils.toRuntimeException(className, funcName, errorContent);
+        return ofThrowable(throwable);
+    }
+
+    public static <T> TGS_Union<T> ofThrowable(Throwable throwable) {
+        return new TGS_Union(null, throwable);
     }
 
     public static <T> TGS_Union<T> of(T value) {
         return value == null
-                ? of(new NullPointerException())
+                ? ofThrowable(new NullPointerException())
                 : new TGS_Union(value, null);
     }
 
