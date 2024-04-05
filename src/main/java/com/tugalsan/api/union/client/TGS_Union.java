@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public record TGS_Union<T>(T value, Throwable throwable) {
 
     public static <T> TGS_Union<T> ofThrowable(CharSequence className, CharSequence funcName, Object errorContent) {
-        var throwable = TGS_UnionUtils.toRuntimeException(className, funcName, errorContent);
+        var throwable = new RuntimeException(TGS_UnionUtils.class + ".toRuntimeException->CLASS[" + className + "] -> FUNC[" + funcName + "] -> ERR: " + errorContent);
         return ofThrowable(throwable);
     }
 
