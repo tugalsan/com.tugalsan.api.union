@@ -4,14 +4,7 @@ import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-public class TGS_Union<T> {
-
-    private TGS_Union(T value, Throwable throwable) {
-        this.value = value;
-        this.throwable = throwable;
-    }
-    final public T value;
-    final public Throwable throwable;
+public record TGS_Union<T>(T value, Throwable throwable) {
 
     public static <T> TGS_Union<T> ofThrowable(CharSequence className, CharSequence funcName, Object errorContent) {
         var throwable = TGS_UnionUtils.toRuntimeException(className, funcName, errorContent);
