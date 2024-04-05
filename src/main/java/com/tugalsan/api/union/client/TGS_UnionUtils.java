@@ -15,7 +15,7 @@ public class TGS_UnionUtils {
         throw toRuntimeException(className, funcName, errorContent);
     }
 
-    public static <R> R _void() {
+    public static <R> R skipOrVoid() {
         return null;
     }
 }
