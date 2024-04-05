@@ -58,11 +58,11 @@ public record TGS_Union<T>(T value, Throwable throwable) {
         return !isEmpty();
     }
 
-    public boolean isTimeout() {
+    public boolean isErrorTimeout() {
         return throwable != null && throwable instanceof TimeoutException;
     }
 
-    public boolean isInterrupt() {
+    public boolean isErrorInterrupt() {
         return throwable != null && throwable instanceof InterruptedException;
     }
 
