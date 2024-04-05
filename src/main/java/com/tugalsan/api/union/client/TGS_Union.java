@@ -36,6 +36,14 @@ public class TGS_Union<T> {
         return value == null;
     }
 
+    public boolean isErrorNot() {
+        return throwable == null;
+    }
+
+    public boolean isError() {
+        return !isErrorNot();
+    }
+
     public void ifPresent(Consumer<? super T> action) {
         if (value != null) {
             action.accept(value);
