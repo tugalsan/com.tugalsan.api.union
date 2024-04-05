@@ -7,7 +7,7 @@ public class TGS_UnionUtils {
         throw new RuntimeException(t);
     }
     
-    public static RuntimeException toRuntimeException(CharSequence className, CharSequence funcName, Object errorContent) {
+    protected static RuntimeException toRuntimeException(CharSequence className, CharSequence funcName, Object errorContent) {
         return new RuntimeException(TGS_UnionUtils.class + ".toRuntimeException->CLASS[" + className + "] -> FUNC[" + funcName + "] -> ERR: " + errorContent);
     }
 
