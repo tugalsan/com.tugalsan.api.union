@@ -22,6 +22,10 @@ public class TGS_Union<T> {
         return new TGS_Union(null, throwable);
     }
 
+    public static <T> TGS_Union<T> ofEmpty() {
+        return of(null);
+    }
+
     public static <T> TGS_Union<T> of(T value) {
         return value == null
                 ? ofThrowable(new NullPointerException("value is intruduced as null"))
