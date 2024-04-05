@@ -15,14 +15,7 @@ public class TGS_UnionUtils {
         throw toRuntimeException(className, funcName, errorContent);
     }
 
-    public static void runNothing() {
-    }
-
-    public static <R> R callVoid() {
+    public static <R> R _void() {
         return null;
-    }
-
-    public static <R> R callValue(R result) {
-        return result;
     }
 }

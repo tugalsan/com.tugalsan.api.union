@@ -2,10 +2,10 @@ package com.tugalsan.api.union.server;
 
 public class TS_UnionUtils {
 
-    public static <R> R throwAsRuntimeException(Throwable t) {
+    public static <R> R throwIfRuntimeException(Throwable t) {
         if (t instanceof InterruptedException) {
             Thread.currentThread().interrupt();
         }
-        throw new RuntimeException(t);
+        return null;
     }
 }
