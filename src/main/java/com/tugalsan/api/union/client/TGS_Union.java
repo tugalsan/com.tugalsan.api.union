@@ -24,7 +24,7 @@ public class TGS_Union<T> {
 
     public static <T> TGS_Union<T> of(T value) {
         return value == null
-                ? ofThrowable(new NullPointerException())
+                ? ofThrowable(new NullPointerException("value is intruduced as null"))
                 : new TGS_Union(value, null);
     }
 
