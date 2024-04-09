@@ -4,50 +4,48 @@ import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-public record TGS_Union<T>(T value, Throwable throwable) {
+public record TGS_Union<T>(T value, Throwable excuse) {
 
-    public static <T> TGS_Union<T> ofThrowable(CharSequence className, CharSequence funcName, Object errorContent) {
-        var throwable = new RuntimeException(TGS_UnionUtils.class + ".toRuntimeException->CLASS[" + className + "] -> FUNC[" + funcName + "] -> ERR: " + errorContent);
-        return ofThrowable(throwable);
+    public static <T> TGS_Union<T> ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
+        return ofExcuse(
+                new RuntimeException(
+                        "CLASS[" + className + "].FUNC[" + funcName + "].EXCUSE: " + excuse
+                )
+        );
     }
 
-    public static <T> TGS_Union<T> ofThrowable(Throwable throwable) {
-        return new TGS_Union(null, throwable);
+    public static <T> TGS_Union<T> ofExcuse(Throwable excuse) {
+        return new TGS_Union(null, excuse);
     }
 
-    public static <T> TGS_Union<T> ofEmpty() {
+    public static <T> TGS_Union<T> ofEmpty_NullPointerException() {
         return of(null);
     }
 
     public static <T> TGS_Union<T> of(T value) {
         return value == null
-                ? ofThrowable(new NullPointerException("value is intruduced as null"))
+                ? ofExcuse(new NullPointerException("value is not introduced"))
                 : new TGS_Union(value, null);
     }
 
+    @Deprecated //USE isExcuse
     public boolean isEmpty() {
         return value == null;
     }
 
-    public boolean isErrorNot() {
-        return throwable == null;
+    @Deprecated //USE isPresent
+    public boolean isExcuseNot() {
+        return excuse == null;
     }
 
-    public boolean isError() {
-        return !isErrorNot();
+    public boolean isExcuse() {
+        return !isExcuseNot();
     }
 
     public void ifPresent(Consumer<? super T> action) {
         if (value != null) {
             action.accept(value);
         }
-    }
-
-    public T orElseThrow() throws Throwable {
-        if (value == null) {
-            throw throwable;
-        }
-        return value;
     }
 
     public T orElse(T other) {
@@ -58,19 +56,19 @@ public record TGS_Union<T>(T value, Throwable throwable) {
         return !isEmpty();
     }
 
-    public boolean isErrorTimeout() {
-        return throwable != null && throwable instanceof TimeoutException;
+    public boolean isExcuseTimeout() {
+        return excuse != null && excuse instanceof TimeoutException;
     }
 
-    public boolean isErrorInterrupt() {
-        return throwable != null && throwable instanceof InterruptedException;
+    public boolean isExcuseInterrupt() {
+        return excuse != null && excuse instanceof InterruptedException;
     }
 
     @Override
     public int hashCode() {
         int hash = 5;
         hash = 59 * hash + Objects.hashCode(this.value);
-        hash = 59 * hash + Objects.hashCode(this.throwable);
+        hash = 59 * hash + Objects.hashCode(this.excuse);
         return hash;
     }
 
@@ -89,13 +87,13 @@ public record TGS_Union<T>(T value, Throwable throwable) {
         if (!Objects.equals(this.value, other.value)) {
             return false;
         }
-        return Objects.equals(this.throwable, other.throwable);
+        return Objects.equals(this.excuse, other.excuse);
     }
 
     @Override
     public String toString() {
         if (value == null) {
-            return TGS_Union.class.getSimpleName() + "{" + "value=" + value + ", throwable=" + throwable + '}';
+            return TGS_Union.class.getSimpleName() + "{" + "value=" + value + ", excuse=" + excuse + '}';
         }
         return String.valueOf(value);
     }
