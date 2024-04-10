@@ -14,6 +14,14 @@ public record TGS_Union<T>(T value, Throwable excuse) {
         );
     }
 
+    public <T> TGS_Union<T> toExcuse() {
+        return TGS_Union.ofExcuse(excuse);
+    }
+
+    public TGS_UnionExcuse toExcuseVoid() {
+        return TGS_UnionExcuse.ofExcuse(excuse);
+    }
+
     public static <T> TGS_Union<T> ofExcuse(Throwable excuse) {
         return new TGS_Union(null, excuse);
     }
@@ -28,18 +36,17 @@ public record TGS_Union<T>(T value, Throwable excuse) {
                 : new TGS_Union(value, null);
     }
 
-    @Deprecated //USE isExcuse
-    public boolean isEmpty() {
-        return value == null;
-    }
-
-    @Deprecated //USE isPresent
-    public boolean isExcuseNot() {
-        return excuse == null;
-    }
-
+//    @Deprecated //USE isExcuse
+//    public boolean isEmpty() {
+//        return value == null;
+//    }
+//
+//    @Deprecated //USE isPresent
+//    public boolean isExcuseNot() {
+//        return excuse == null;
+//    }
     public boolean isExcuse() {
-        return !isExcuseNot();
+        return excuse != null;
     }
 
     public void ifPresent(Consumer<? super T> action) {
@@ -53,7 +60,7 @@ public record TGS_Union<T>(T value, Throwable excuse) {
     }
 
     public boolean isPresent() {
-        return !isEmpty();
+        return value != null;
     }
 
     public boolean isExcuseTimeout() {

@@ -16,6 +16,10 @@ public record TGS_UnionExcuse(Throwable excuse) {
         return new TGS_UnionExcuse(null);
     }
 
+    public <T> TGS_Union<T> toExcuse() {
+        return TGS_Union.ofExcuse(excuse);
+    }
+
     public static TGS_UnionExcuse ofExcuse(Throwable excuse) {
         return new TGS_UnionExcuse(excuse);
     }
@@ -24,13 +28,12 @@ public record TGS_UnionExcuse(Throwable excuse) {
         return excuse == null;
     }
 
-    @Deprecated //use isVoid
-    public boolean isExcuseNot() {
-        return isVoid();
-    }
-
+//    @Deprecated //use isVoid
+//    public boolean isExcuseNot() {
+//        return isVoid();
+//    }
     public boolean isExcuse() {
-        return !isExcuseNot();
+        return excuse != null;
     }
 
     public boolean isExcuseTimeout() {
