@@ -1,5 +1,6 @@
 package com.tugalsan.api.union.client;
 
+import com.tugalsan.api.callable.client.TGS_CallableType1;
 import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
@@ -46,8 +47,8 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
         }
     }
 
-    public T orElse(T other) {
-        return value != null ? value : other;
+    public T orElse(TGS_CallableType1<T, Throwable> excuse) {
+        return value != null ? value : excuse.call(this.excuse);
     }
 
     public boolean isPresent() {
