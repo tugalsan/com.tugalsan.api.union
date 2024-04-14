@@ -15,6 +15,20 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
         );
     }
 
+    public T value() {
+        if (value == null) {
+            throw new UnsupportedOperationException("union is an excuse");
+        }
+        return value;
+    }
+
+    public Throwable excuse() {
+        if (excuse == null) {
+            throw new UnsupportedOperationException("union is a value");
+        }
+        return excuse;
+    }
+
     public <T> TGS_UnionExcuse<T> toExcuse() {
         return TGS_UnionExcuse.ofExcuse(excuse);
     }
@@ -33,7 +47,7 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
 
     public static <T> TGS_UnionExcuse<T> of(T value) {
         return value == null
-                ? ofExcuse(new NullPointerException("value is not introduced"))
+                ? ofExcuse(new UnsupportedOperationException("value is not introduced"))
                 : new TGS_UnionExcuse(value, null);
     }
 
@@ -91,8 +105,8 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
 
     @Override
     public String toString() {
-        if (value == null) {
-            return TGS_UnionExcuse.class.getSimpleName() + "{" + "value=" + value + ", excuse=" + excuse + '}';
+        if (isExcuse()) {
+            return TGS_UnionExcuse.class.getSimpleName() + "{excuse=" + excuse + '}';
         }
         return String.valueOf(value);
     }

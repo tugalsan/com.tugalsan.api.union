@@ -12,6 +12,13 @@ public record TGS_UnionExcuseVoid(Throwable excuse) {
         );
     }
 
+    public Throwable excuse() {
+        if (excuse == null) {
+            throw new UnsupportedOperationException("union is a void");
+        }
+        return excuse;
+    }
+
     public static TGS_UnionExcuseVoid ofVoid() {
         return new TGS_UnionExcuseVoid(null);
     }
@@ -40,4 +47,11 @@ public record TGS_UnionExcuseVoid(Throwable excuse) {
         return excuse != null && excuse instanceof InterruptedException;
     }
 
+    @Override
+    public String toString() {
+        if (isVoid()) {
+            return TGS_UnionExcuse.class.getSimpleName() + "{excuse=" + excuse + '}';
+        }
+        return "";
+    }
 }
