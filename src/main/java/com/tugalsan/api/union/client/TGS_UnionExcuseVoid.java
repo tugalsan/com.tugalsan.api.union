@@ -20,8 +20,9 @@ public record TGS_UnionExcuseVoid(Throwable excuse) {
     }
 
     public static TGS_UnionExcuseVoid ofVoid() {
-        return new TGS_UnionExcuseVoid(null);
+        return VOID;
     }
+    final private static TGS_UnionExcuseVoid VOID = new TGS_UnionExcuseVoid(null);
 
     public <T> TGS_UnionExcuse<T> toExcuse() {
         return TGS_UnionExcuse.ofExcuse(excuse);
