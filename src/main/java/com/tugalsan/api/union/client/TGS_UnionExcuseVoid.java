@@ -41,11 +41,37 @@ public record TGS_UnionExcuseVoid(Throwable excuse) {
     }
 
     public boolean isExcuseTimeout() {
-        return excuse != null && excuse instanceof TimeoutException;
+        return isExcuseTimeout(excuse);
     }
 
     public boolean isExcuseInterrupt() {
-        return excuse != null && excuse instanceof InterruptedException;
+        return isExcuseInterrupt(excuse);
+    }
+
+    private static boolean isExcuseInterrupt(Throwable t) {
+        if (t == null) {
+            return false;
+        }
+        if (t instanceof InterruptedException) {
+            return true;
+        }
+        if (t.getCause() != null) {
+            return isExcuseInterrupt(t.getCause());
+        }
+        return false;
+    }
+
+    private static boolean isExcuseTimeout(Throwable t) {
+        if (t == null) {
+            return false;
+        }
+        if (t instanceof TimeoutException) {
+            return true;
+        }
+        if (t.getCause() != null) {
+            return isExcuseTimeout(t.getCause());
+        }
+        return false;
     }
 
     @Override
