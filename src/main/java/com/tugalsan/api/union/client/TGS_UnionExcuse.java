@@ -5,14 +5,12 @@ import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
 
-public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
+//public record TGS_UnionExcuse<T>(T value, Throwable excuse) {//GWT does not like record!
+public class TGS_UnionExcuse<T> {
 
-    public static <T> TGS_UnionExcuse<T> ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
-        return ofExcuse(
-                new RuntimeException(
-                        "CLASS[" + className + "].FUNC[" + funcName + "].EXCUSE: " + excuse
-                )
-        );
+    private TGS_UnionExcuse(T value, Throwable excuse) {
+        this.value = value;
+        this.excuse = excuse;
     }
 
     public T value() {
@@ -21,12 +19,22 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
         }
         return value;
     }
+    private T value;
 
     public Throwable excuse() {
         if (excuse == null) {
             throw new UnsupportedOperationException("union is a value");
         }
         return excuse;
+    }
+    private Throwable excuse;
+
+    public static <T> TGS_UnionExcuse<T> ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
+        return ofExcuse(
+                new RuntimeException(
+                        "CLASS[" + className + "].FUNC[" + funcName + "].EXCUSE: " + excuse
+                )
+        );
     }
 
     public <T> TGS_UnionExcuse<T> toExcuse() {
@@ -104,9 +112,11 @@ public record TGS_UnionExcuse<T>(T value, Throwable excuse) {
     }
 
     @Override
-    public String toString() {
+    public String
+            toString() {
         if (isExcuse()) {
-            return TGS_UnionExcuse.class.getSimpleName() + "{excuse=" + excuse + '}';
+            return TGS_UnionExcuse.class
+                    .getSimpleName() + "{excuse=" + excuse + '}';
         }
         return String.valueOf(value);
     }

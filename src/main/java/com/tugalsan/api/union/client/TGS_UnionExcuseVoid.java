@@ -2,14 +2,11 @@ package com.tugalsan.api.union.client;
 
 import java.util.concurrent.TimeoutException;
 
-public record TGS_UnionExcuseVoid(Throwable excuse) {
+//public record TGS_UnionExcuseVoid(Throwable excuse) {//GWT does not like record!
+public class TGS_UnionExcuseVoid {
 
-    public static TGS_UnionExcuseVoid ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
-        return ofExcuse(
-                new RuntimeException(
-                        "CLASS[" + className + "].FUNC[" + funcName + "].EXCUSE: " + excuse
-                )
-        );
+    private TGS_UnionExcuseVoid(Throwable excuse) {
+        this.excuse = excuse;
     }
 
     public Throwable excuse() {
@@ -17,6 +14,15 @@ public record TGS_UnionExcuseVoid(Throwable excuse) {
             throw new UnsupportedOperationException("union is a void");
         }
         return excuse;
+    }
+    private Throwable excuse;
+
+    public static TGS_UnionExcuseVoid ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
+        return ofExcuse(
+                new RuntimeException(
+                        "CLASS[" + className + "].FUNC[" + funcName + "].EXCUSE: " + excuse
+                )
+        );
     }
 
     public static TGS_UnionExcuseVoid ofVoid() {
