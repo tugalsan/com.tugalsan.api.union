@@ -38,11 +38,23 @@ public class TGS_UnionExcuse<T> {
     }
 
     public <T> TGS_UnionExcuse<T> toExcuse() {
-        return TGS_UnionExcuse.ofExcuse(excuse);
+        if (excuse.getClass().getSimpleName().equals(InterruptedException.class.getSimpleName())) {
+            return TGS_UnionExcuse.ofExcuse(excuse);
+        }
+        if (excuse.getClass().getSimpleName().equals(TimeoutException.class.getSimpleName())) {
+            return TGS_UnionExcuse.ofExcuse(excuse);
+        }
+        return TGS_UnionExcuse.ofExcuse(TGS_UnionException.of(this));
     }
 
     public TGS_UnionExcuseVoid toExcuseVoid() {
-        return TGS_UnionExcuseVoid.ofExcuse(excuse);
+        if (excuse.getClass().getSimpleName().equals(InterruptedException.class.getSimpleName())) {
+            return TGS_UnionExcuseVoid.ofExcuse(excuse);
+        }
+        if (excuse.getClass().getSimpleName().equals(TimeoutException.class.getSimpleName())) {
+            return TGS_UnionExcuseVoid.ofExcuse(excuse);
+        }
+        return TGS_UnionExcuseVoid.ofExcuse(TGS_UnionException.of(this));
     }
 
     public static <T> TGS_UnionExcuse<T> ofExcuse(Throwable excuse) {
