@@ -82,7 +82,13 @@ public class TGS_UnionExcuse<T> {
     }
 
     public T orElse(TGS_CallableType1<T, Throwable> excuse) {
-        return value != null ? value : excuse.call(this.excuse);
+        if (value != null) {
+            return value;
+        }
+        if (excuse == null) {
+            return null;
+        }
+        return excuse.call(this.excuse);
     }
 
     public boolean isPresent() {
