@@ -16,7 +16,7 @@ public class TGS_UnionExcuse<T> {
 
     public T value() {
         if (value == null) {
-            TGS_UnSafe.thrw(excuse);
+            throw new UnsupportedOperationException("union is an excuse: " + excuse.getMessage());
         }
         return value;
     }
