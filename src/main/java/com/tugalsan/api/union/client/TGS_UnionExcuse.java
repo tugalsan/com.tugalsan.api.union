@@ -24,7 +24,7 @@ public class TGS_UnionExcuse<T> {
 
     public <R> R throwIfExcuse() {
         if (excuse == null) {
-            return;
+            return null;
         }
         TGS_UnSafe.thrw(excuse);
         throw new RuntimeException("You should not see this. preLine already throws.");
