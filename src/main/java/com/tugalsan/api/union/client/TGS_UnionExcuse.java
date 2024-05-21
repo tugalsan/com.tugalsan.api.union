@@ -27,7 +27,7 @@ public class TGS_UnionExcuse<T> {
             return null;
         }
         TGS_UnSafe.thrw(excuse);
-        throw new RuntimeException("You should not see this. preLine already throws.");
+        return null;
     }
 
     public Throwable excuse() {
