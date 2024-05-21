@@ -1,6 +1,7 @@
 package com.tugalsan.api.union.client;
 
 import com.tugalsan.api.callable.client.TGS_CallableType1;
+import com.tugalsan.api.unsafe.client.TGS_UnSafe;
 import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
@@ -15,7 +16,7 @@ public class TGS_UnionExcuse<T> {
 
     public T value() {
         if (value == null) {
-            throw new UnsupportedOperationException("union is an excuse");
+            TGS_UnSafe.thrw(excuse);
         }
         return value;
     }
