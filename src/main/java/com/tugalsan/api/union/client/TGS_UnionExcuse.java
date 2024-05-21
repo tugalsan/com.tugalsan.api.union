@@ -22,9 +22,9 @@ public class TGS_UnionExcuse<T> {
     }
     private T value;
 
-    public <R> R throwExcuse() {
+    public <R> R throwIfExcuse() {
         if (excuse == null) {
-            throw new UnsupportedOperationException("union is a value");
+            return;
         }
         TGS_UnSafe.thrw(excuse);
         throw new RuntimeException("You should not see this. preLine already throws.");
