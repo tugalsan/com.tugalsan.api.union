@@ -15,14 +15,13 @@ public class TGS_UnionExcuse<T> {
     }
 
     public T value() {
-        if (value == null) {
-            throw new UnsupportedOperationException("union is an excuse: " + excuse.getMessage());
-        }
+        throwIfExcuse();
         return value;
     }
     private T value;
 
-    public <R> R throwIfExcuse() {
+    @Deprecated //not safe, or just use value
+    private <R> R throwIfExcuse() {
         if (excuse == null) {
             return null;
         }
