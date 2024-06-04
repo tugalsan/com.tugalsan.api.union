@@ -5,6 +5,7 @@ import com.tugalsan.api.unsafe.client.TGS_UnSafe;
 import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 //public record TGS_UnionExcuse<T>(T value, Throwable excuse) {//GWT does not like record!
 public class TGS_UnionExcuse<T> {
@@ -12,6 +13,14 @@ public class TGS_UnionExcuse<T> {
     private TGS_UnionExcuse(T value, Throwable excuse) {
         this.value = value;
         this.excuse = excuse;
+    }
+
+    public <R> TGS_UnionExcuse<R> map(Function<T, R> mapper) {
+        if (value == null) {
+            return TGS_UnionExcuse.of(mapper.apply(value));
+        } else {
+            return TGS_UnionExcuse.ofExcuse(excuse);
+        }
     }
 
     public T value() {
@@ -146,4 +155,5 @@ public class TGS_UnionExcuse<T> {
         }
         return String.valueOf(value);
     }
+
 }
