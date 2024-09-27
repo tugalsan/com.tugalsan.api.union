@@ -15,7 +15,7 @@ public class TGS_UnionExcuseVoid {
         }
         return excuse;
     }
-    private Throwable excuse;
+    private final Throwable excuse;
 
     public static TGS_UnionExcuseVoid ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
         return ofExcuse(
