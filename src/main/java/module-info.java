@@ -1,5 +1,4 @@
 module com.tugalsan.api.union {
-    requires com.tugalsan.api.function;
-    requires com.tugalsan.api.unsafe;
+    requires com.tugalsan.api.function;    
     exports com.tugalsan.api.union.client;
 }

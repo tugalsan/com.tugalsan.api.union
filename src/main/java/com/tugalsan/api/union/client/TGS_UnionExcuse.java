@@ -1,7 +1,7 @@
 package com.tugalsan.api.union.client;
 
-import com.tugalsan.api.function.client.TGS_Func_OutTyped_In1;
-import com.tugalsan.api.unsafe.client.TGS_UnSafe;
+import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCEUtils;
+import com.tugalsan.api.function.client.maythrow.uncheckedexceptions.TGS_FuncMTUCE_OutTyped_In1;
 import java.util.Objects;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Consumer;
@@ -34,7 +34,7 @@ public class TGS_UnionExcuse<T> {
         if (excuse == null) {
             return null;
         }
-        TGS_UnSafe.thrw(excuse);
+        TGS_FuncMTUCEUtils.thrw(excuse);
         return null;
     }
 
@@ -98,7 +98,7 @@ public class TGS_UnionExcuse<T> {
         }
     }
 
-    public T orElse(TGS_Func_OutTyped_In1<T, Throwable> excuse) {
+    public T orElse(TGS_FuncMTUCE_OutTyped_In1<T, Throwable> excuse) {
         if (value != null) {
             return value;
         }
