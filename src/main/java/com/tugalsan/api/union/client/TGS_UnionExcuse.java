@@ -3,9 +3,8 @@ package com.tugalsan.api.union.client;
 import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTUUtils;
 import com.tugalsan.api.function.client.maythrowexceptions.unchecked.TGS_FuncMTU_OutTyped_In1;
 import java.util.Objects;
-import java.util.concurrent.TimeoutException;
-import java.util.function.Consumer;
-import java.util.function.Function;
+import java.util.concurrent.*;
+import java.util.function.*;
 
 //public record TGS_UnionExcuse<T>(T value, Throwable excuse) {//GWT does not like record!
 public class TGS_UnionExcuse<T> {
@@ -45,6 +44,14 @@ public class TGS_UnionExcuse<T> {
         return excuse;
     }
     private Throwable excuse;
+
+    public static <T> TGS_UnionExcuse<T> ofExcuse(Supplier className, CharSequence funcName, Object excuse) {
+        return ofExcuse(
+                new RuntimeException(
+                        "CLASS[" + className.get() + "].FUNC[" + funcName + "].EXCUSE: " + excuse
+                )
+        );
+    }
 
     public static <T> TGS_UnionExcuse<T> ofExcuse(CharSequence className, CharSequence funcName, Object excuse) {
         return ofExcuse(
